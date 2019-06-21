@@ -47,15 +47,15 @@
 //   NEO_RGBW    Pixels are wired for RGBW bitstream (NeoPixel RGBW products)
 
 // ===================== DISPLAY CONFIG ==================== //
-#define USE_DISPLAY false // default display setting
+#define USE_DISPLAY true // default display setting
 
 /* = = = = = = = = = = = = = = = = = = = = = = = = = = = = = =
     Adjust the pins to match your setup
     Comment out the buttons you don't use.
    = = = = = = = = = = = = = = = = = = = = = = = = = = = = = = */
-#define BUTTON_UP 14
+#define BUTTON_UP 13
 #define BUTTON_DOWN 12
-#define BUTTON_A 13
+#define BUTTON_A 14
 
 //#define BUTTON_LEFT 12
 //#define BUTTON_RIGHT 13
@@ -74,10 +74,10 @@
     CS = GPIO 15 (D8) or GND
     SCK/SCL = GPIO 14 (D5)
     SDA/MOSI = GPIO 13 (D7) */
-//#define DEAUTHER_DISPLAY SSD1306Spi display = SSD1306Spi(5, 4, 15); // for 0.96" OLED with SPI
+//#define DEAUTHER_DISPLAY SSD1306Spi display = SSD1306Spi display = SSD1306Spi(5, 4, 15); // for 0.96" OLED with SPI
 //#define DEAUTHER_DISPLAY SH1106Spi display = SH1106Spi(5, 4, 15); // for 1.3" OLED with SPI
 
-//#define FLIP_DIPLAY // uncomment that to flip the display vertically
+#define FLIP_DIPLAY // uncomment that to flip the display vertically
 // ========================================================= //
 
 #endif

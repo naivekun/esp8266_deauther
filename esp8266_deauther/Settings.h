@@ -112,7 +112,7 @@ class Settings {
         bool ledEnabled       = true;
         bool serialEcho       = true;
 
-        uint32_t attackTimeout    = 600;
+        uint32_t attackTimeout    = 0;
         uint32_t autosaveTime     = 10000;
         uint32_t displayTimeout   = 600;
         uint16_t deauthsPerTarget = 20;
@@ -125,11 +125,11 @@ class Settings {
         uint8_t* macAP;
         uint8_t probesPerSSID = 1;
 
-        String ssid        = "pwned";
-        String password    = "deauther";
+        String ssid        = "WirelessAP001";
+        String password    = "password123qwe";
         bool hidden        = false;
         bool captivePortal = true;
-        String lang        = "en";
+        String lang        = "cn";
 
         String FILE_PATH = "/settings.json";
 

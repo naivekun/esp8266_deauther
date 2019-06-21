@@ -41,7 +41,9 @@ class SSIDs {
         void print(int num);
         void print(int num, bool header, bool footer);
         void add(String name, bool wpa2, int clones, bool force);
+        void addWithId(String name, bool wpa2, int clones, bool force);
         void cloneSelected(bool force);
+        void cloneSelectedWithId(bool force);
         void remove(int num);
         void enableRandom(uint32_t randomInterval);
         void disableRandom();

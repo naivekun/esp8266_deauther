@@ -43,7 +43,6 @@ void SSIDs::save(bool force) {
         DOUBLEPOINT) + b2s(randomMode) + String(COMMA); // {"random":false,
     buf += String(DOUBLEQUOTES) + str(SS_JSON_SSIDS) + String(DOUBLEQUOTES) + String(DOUBLEPOINT) +
            String(OPEN_BRACKET);                        // "ssids":[
-
     if (!writeFile(FILE_PATH, buf)) {
         prnt(F_ERROR_SAVING);
         prntln(FILE_PATH);
@@ -53,17 +52,14 @@ void SSIDs::save(bool force) {
 
     String name;
     int    c = count();
-
     for (int i = 0; i < c; i++) {
         name = escape(getName(i));
-
         buf += String(OPEN_BRACKET) + String(DOUBLEQUOTES) + name + String(DOUBLEQUOTES) + String(COMMA); // ["name",
         buf += b2s(getWPA2(i)) + String(COMMA);                                                           // false,
         buf += String(getLen(i)) + String(CLOSE_BRACKET);                                                 // 12]
 
         if (i < c - 1) buf += COMMA;                                                                      // ,
-
-        if (buf.length() >= 1024) {
+        if (buf.length() >= 256) {    // bug in original repo!!! memory is not enough
             if (!appendFile(FILE_PATH, buf)) {
                 prnt(F_ERROR_SAVING);
                 prntln(FILE_PATH);
@@ -162,8 +158,7 @@ String SSIDs::randomize(String name) {
 
     if (ssidlen < 32) {
         for (int i = ssidlen; i < 32; i++) {
-            int rnd = random(3);
-
+            int rnd = random(300)%3;     // bug in original repo
             if ((i < 29) && (rnd == 0)) { // ZERO WIDTH SPACE
                 name += char(0xE2);
                 name += char(0x80);
@@ -192,9 +187,36 @@ void SSIDs::add(String name, bool wpa2, int clones, bool force) {
     }
 
     if (clones > SSID_LIST_SIZE) clones = SSID_LIST_SIZE;
-
+    String randomedName;
     for (int i = 0; i < clones; i++) {
-        internal_add(clones > 1 ? randomize(name) : name, wpa2, name.length());
+        //if (clones > 1) name = randomize(name);
+        randomedName = randomize(name);
+        internal_add(randomedName, wpa2, randomedName.length());
+
+        if (list->size() > SSID_LIST_SIZE) internal_remove(0);
+    }
+
+    prnt(SS_ADDED);
+    prntln(name);
+    changed = true;
+}
+
+void SSIDs::addWithId(String name, bool wpa2, int clones, bool force) {
+    if (list->size() >= SSID_LIST_SIZE) {
+        if (force) {
+            internal_remove(0);
+        } else {
+            prntln(SS_ERROR_FULL);
+            return;
+        }
+    }
+
+    if (clones > SSID_LIST_SIZE) clones = SSID_LIST_SIZE;
+    String randomedName;
+    for (int i = 0; i < clones; i++) {
+        //if (clones > 1) name = randomize(name);
+        randomedName = randomize(name+String(i));
+        internal_add(randomedName, wpa2, randomedName.length());
 
         if (list->size() > SSID_LIST_SIZE) internal_remove(0);
     }
@@ -215,6 +237,21 @@ void SSIDs::cloneSelected(bool force) {
 
         for (int i = 0; i < apCount; i++) {
             if (accesspoints.getSelected(i)) add(accesspoints.getSSID(i), accesspoints.getEnc(i) != 0, clones, force);
+        }
+    }
+}
+
+void SSIDs::cloneSelectedWithId(bool force) {
+    if (accesspoints.selected() > 0) {
+        int clones = SSID_LIST_SIZE;
+
+        if (!force) clones -= list->size();
+        clones /= accesspoints.selected();
+
+        int apCount = accesspoints.count();
+
+        for (int i = 0; i < apCount; i++) {
+            if (accesspoints.getSelected(i)) addWithId(accesspoints.getSSID(i), accesspoints.getEnc(i) != 0, clones, force);
         }
     }
 }

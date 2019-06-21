@@ -374,6 +374,7 @@ const char D_SSIDS[] PROGMEM = "SSIDs ";
 
 // SSID LIST MENU
 const char D_CLONE_APS[] PROGMEM = "CLONE APs";
+const char D_CLONE_APS_ID[] PROGMEM = "CLONE APs + index";
 const char D_RANDOM_MODE[] PROGMEM = "RANDOM MODE";
 
 // ATTACK MENU

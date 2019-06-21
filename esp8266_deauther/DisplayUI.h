@@ -32,7 +32,7 @@ extern String replaceUtf8(String str, String r);
 const char D_INTRO_0[] PROGMEM = "";
 const char D_INTRO_1[] PROGMEM = "ESP8266 Deauther";
 const char D_INTRO_2[] PROGMEM = "by @Spacehuhn";
-const char D_INTRO_3[] PROGMEM = "";
+const char D_INTRO_3[] PROGMEM = "mod by @naivekun";
 
 // fallback for the buttons
 #ifndef BUTTON_UP
@@ -84,7 +84,7 @@ class DisplayUI {
         const uint8_t buttonDelay      = 250;
         const uint8_t drawInterval     = 100; // 100ms = 10 FPS
         const uint16_t scrollSpeed     = 500; // time interval in ms
-        const uint16_t screenIntroTime = 2500;
+        const uint16_t screenIntroTime = 4000;
         const uint16_t screenWidth = 128;
         const uint16_t sreenHeight = 64;
 
