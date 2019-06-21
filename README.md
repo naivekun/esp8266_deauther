@@ -1,3 +1,17 @@
+> mod by naivekun
+
+1. ssids.save()缓冲区太大，内存有时候会爆，已由1024改到256
+2. 加了一个clone ssid with index，用来投放信息
+3. 修改语言为中文
+4. 适配淘宝的山寨便宜板子（搜"8266 0.96"，50块钱），包括按钮和屏幕
+5. 修改攻击时间为无限制
+
+TODO:
+1. 换上ipx天线
+2. 3D打印一个壳子
+
+
+
 # ESP8266 Deauther 2.0
 
 <p align="center"><img alt="PICTURE logo" src="https://raw.githubusercontent.com/wiki/spacehuhn/esp8266_deauther/img/deauther_logo.png" width="200"></p>
